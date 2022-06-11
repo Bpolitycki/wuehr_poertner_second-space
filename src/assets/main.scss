@@ -1,0 +1,15 @@
+@charset 'UTF-8';
+// always display the navbar
+$navbar-breakpoint: 0;
+$primary: #1a427e;
+$navbar-item-hover-color: $primary;
+@import 'bulma/bulma.sass';
+
+.button {
+  &.is-medium {
+    svg {
+      height: $size-5;
+      margin-right: 0.25rem;
+    }
+  }
+}
