@@ -18,6 +18,11 @@ const router = createRouter({
       component: () => import('../views/MaterialView.vue'),
     },
     {
+      path: '/material/:id',
+      name: 'singleview',
+      component: () => import('../views/MaterialSingleView.vue'),
+    },
+    {
       path: '/search',
       name: 'search',
       // route level code-splitting
