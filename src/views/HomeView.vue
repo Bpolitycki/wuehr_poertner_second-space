@@ -15,10 +15,10 @@ import IconSearch from '../components/icons/IconSearch.vue';
                 Spuren des O-Ton-Hörspiels zwischen Wuppertal und München
             </h2>
             <div class="buttons">
-                <RouterLink to="/material" class="button is-primary has-icon is-medium pl-2">
+                <RouterLink to="/material" class="button is-primary is-medium pl-2">
                     <IconExpand /> Material entdecken
                 </RouterLink>
-                <RouterLink to="/search" class="button is-warning has-icon is-medium pl-2">
+                <RouterLink to="/search" class="button is-warning is-medium pl-2">
                     <IconSearch /> Dokument suchen
                 </RouterLink>
             </div>

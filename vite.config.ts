@@ -5,7 +5,9 @@ import vue from '@vitejs/plugin-vue';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [vue()],
+  plugins: [vue({
+    exclude: /.*main\.scss/
+  })],
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),
@@ -14,7 +16,12 @@ export default defineConfig({
   css: {
     preprocessorOptions: {
       scss: {
-        additionalData: `@import "@/assets/main.scss";`,
+        sourceMap: false,
+        additionalData (source: string, fp: string) {
+            if (fp.endsWith('main.scss')) return source;
+            return `@import "@/assets/main.scss"; ${source}`
+
+        }
       },
     },
   },

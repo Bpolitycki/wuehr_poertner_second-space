@@ -1,4 +1,4 @@
-<script setup lang="ts">
+l<script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
 import IconHome from './components/icons/IconHome.vue'
 import IconSearch from './components/icons/IconSearch.vue'

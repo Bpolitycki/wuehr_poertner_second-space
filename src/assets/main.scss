@@ -6,6 +6,10 @@ $navbar-item-hover-color: $primary;
 @import 'bulma/bulma.sass';
 
 .button {
+  svg {
+    height: $size-6;
+    margin-right: 0.25rem;
+  }
   &.is-medium {
     svg {
       height: $size-5;
