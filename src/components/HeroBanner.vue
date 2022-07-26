@@ -51,7 +51,7 @@ const imageUrl = new URL(`../assets/${img?.value}`, import.meta.url).href
     display: grid;
     min-width: 350px;
     width: 100%;
-    height: 100%;
+    height: 100vh;
     object-fit: cover;
 
     filter: blur(2.5px);
