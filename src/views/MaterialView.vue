@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import Filters from '@/components/Filters.vue';
 import { ref } from 'vue'
-import { useDataStore } from '@/stores/data.js';
+import { useDataStore } from '@/stores/data';
 
 const store = useDataStore();
 const entries = ref(store.filteredEntries);
