@@ -5,15 +5,24 @@ import { ref, type Ref, computed, type ComputedRef } from 'vue';
 /* @ts-ignore */
 import data from '@/assets/data/data';
 
-type filterType = 'author' | 'mediaType' | 'titleOrId';
+type bibliographic = 'author' | 'mediaType';
+
+type filterType = bibliographic | 'titleOrId';
+
+interface biblioFilter {
+  author: string[];
+  mediaType: mediaType[];
+}
 
 interface filter {
   type: filterType | undefined;
-  value: string | mediaType | undefined;
+  idOrTitle: string | undefined;
+  bibliographic: biblioFilter;
 }
 
 interface data {
   entries: entry[];
+  filteredEntries: entry[] | undefined;
   filter: filter;
 }
 
@@ -26,26 +35,71 @@ const entries: entry[] = data;
 const fuse = new Fuse(entries, options);
 
 export const useDataStore = defineStore('data', () => {
-  const data: Ref<data> = ref({
-    entries,
-    filter: {
-      type: undefined,
-      value: undefined,
+  const data = entries;
+
+  const filter: Ref<filter> = ref({
+    type: undefined,
+    idOrTitle: undefined,
+    bibliographic: {
+      author: [],
+      mediaType: [],
     },
   });
 
+  const filteredData: Ref<entry[] | undefined> = ref(undefined);
+
   const reset = () => {
-    data.value.filter = {
+    filter.value = {
       type: undefined,
-      value: undefined,
+      idOrTitle: undefined,
+      bibliographic: {
+        author: [],
+        mediaType: [],
+      },
     };
+    filteredData.value = undefined;
   };
 
-  const _setFilterType = (type: filterType, value: string | mediaType) => {
-    data.value.filter = {
-      type,
-      value,
-    };
+  const _setFilterType = (type: filterType, value: string) => {
+    switch (type) {
+      case 'titleOrId':
+        filter.value = {
+          type,
+          idOrTitle: value,
+          bibliographic: {
+            author: [],
+            mediaType: [],
+          },
+        };
+        break;
+      case 'author':
+        filter.value = {
+          type,
+          idOrTitle: undefined,
+          bibliographic: {
+            author: [...filter.value.bibliographic.author, value],
+            mediaType: filter.value.bibliographic?.mediaType,
+          },
+        };
+        break;
+      case 'mediaType':
+        filter.value = {
+          type,
+          idOrTitle: undefined,
+          bibliographic: {
+            author: filter.value.bibliographic.author,
+            mediaType: [
+              ...filter.value.bibliographic.mediaType,
+              value as mediaType,
+            ],
+          },
+        };
+        break;
+      default:
+        reset();
+        break;
+    }
+    filterEntries();
   };
 
   const filterByAuthor = (author: string) => {
@@ -60,50 +114,47 @@ export const useDataStore = defineStore('data', () => {
     _setFilterType('titleOrId', query);
   };
 
-  const filteredEntries: ComputedRef<entry[] | undefined> = computed(() => {
-    switch (data.value.filter.type) {
+  const filterEntries = (): void => {
+    switch (filter.value.type) {
       case 'author':
-        return data.value.entries.filter(
-          (entry) => entry.author === data.value.filter.value
-        );
       case 'mediaType':
-        return data.value.entries.filter(
-          (entry) => entry.metadata.type === data.value.filter.value
-        );
+        let results = filteredData.value ? filteredData.value : data;
+        results =
+          filter.value.type === 'author'
+            ? results.filter((i) =>
+                filter.value.bibliographic.author.includes(i.author)
+              )
+            : results;
+        filteredData.value =
+          filter.value.type === 'mediaType'
+            ? results.filter((i) =>
+                filter.value.bibliographic.mediaType.includes(i.metadata.type)
+              )
+            : results;
+        break;
       case 'titleOrId':
-        const search = fuse.search(data.value.filter.value as string);
-        return search.length > 0 ? search.map((i) => i.item) : undefined;
+        const search = fuse.search(filter.value.idOrTitle as string);
+        filteredData.value =
+          search.length > 0 ? search.map((i) => i.item) : undefined;
+        break;
       default:
-        return data.value.entries;
+        break;
     }
+  };
+
+  const total: ComputedRef<number> = computed(() => {
+    if (filteredData.value) return filteredData.value.length;
+    return data.length;
   });
 
   return {
     data,
-    filteredEntries,
+    filteredData,
+    filter,
     filterByAuthor,
     filterByMediaType,
     filterByTitleOrId,
+    total,
     reset,
   };
 });
-
-/* export const useDataStore = defineStore({
-  id: 'data',
-  state: () => ({
-    entries,
-  }),
-  getters: {
-    filterByAuthor: (state) => {
-      return (author: string) =>
-        state.entries.filter((entry) => entry.author === author);
-    },
-    filterByMediaType: (state) => {
-      return (type: mediaType) =>
-        state.entries.filter((entry) => entry.metadata.type === type);
-    },
-    filterByTitleOrId: () => {
-      return (query: string) => fuse.search(query);
-    },
-  },
-}); */

@@ -9,12 +9,24 @@ describe('All items in filteredEntries', () => {
   });
 
   for (const author of ['Paul Wühr']) {
-    it(`'should belong to ${author} as author`, () => {
+    it(`should belong to ${author} as author`, () => {
       const data = useDataStore();
       data.filterByAuthor(author);
-      expect(data.data.filter.type).toBe('author');
+      expect(data.filter.type).toBe('author');
       expect(
-        data.filteredEntries?.every((i) => i.author === author)
+        data.filteredData.every((entry) => entry.author === author)
+      ).toBeTruthy();
+    });
+
+    it(`should belong to ${author} and be of type 'image'`, () => {
+      const data = useDataStore();
+      data.filterByAuthor(author);
+      data.filterByMediaType('image');
+      expect(data.filter.bibliographic.author.includes(author)).toBeTruthy();
+      expect(
+        data.filteredData.every(
+          (entry) => entry.author === author && entry.metadata.type === 'image'
+        )
       ).toBeTruthy();
     });
   }
@@ -24,7 +36,7 @@ describe('All items in filteredEntries', () => {
       const data = useDataStore();
       data.filterByMediaType(mediaType as mediaType);
       expect(
-        data.filteredEntries?.every((entry) => entry.media === mediaType)
+        data.filteredData?.every((entry) => entry.media === mediaType)
       ).toBeTruthy();
     });
   }
@@ -34,9 +46,7 @@ describe('All items in filteredEntries', () => {
       const data = useDataStore();
       data.filterByTitleOrId(title);
       expect(
-        data.filteredEntries?.every((entry) =>
-          entry.biblio.title.includes(title)
-        )
+        data.filteredData?.every((entry) => entry.biblio.title.includes(title))
       ).toBeTruthy();
     });
   }
