@@ -2,7 +2,7 @@ interface bib {
   title: string;
   subtitle?: string;
   type: 'pre-text' | 'text' | 'epi-text';
-  year: Date | undefined;
+  year?: Date | undefined;
   broadcaster?: string;
 }
 
@@ -15,7 +15,8 @@ type mediaType = 'audio' | 'image';
 
 interface meta {
   type: mediaType;
-  file: string | undefined;
+  files: string[] | undefined;
+  selectedFile: string;
 }
 
 interface entry {

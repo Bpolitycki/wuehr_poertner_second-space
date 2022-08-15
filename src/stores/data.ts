@@ -2,6 +2,8 @@ import { defineStore } from 'pinia';
 import Fuse from 'fuse.js';
 import type { entry, mediaType } from '@/types/data';
 import { ref, type Ref, computed, type ComputedRef } from 'vue';
+/* @ts-ignore */
+import data from '@/assets/data/data';
 
 type filterType = 'author' | 'mediaType' | 'titleOrId';
 
@@ -15,31 +17,11 @@ interface data {
   filter: filter;
 }
 
-const entries: entry[] = [
-  {
-    id: '123',
-    author: 'Paul Wühr',
-    media: 'audio',
-    biblio: {
-      title: 'So eine Freiheit',
-      year: new Date(1992),
-      type: 'text',
-    },
-    archival: {
-      place: 'Wuppertal',
-      institution: 'Bergische Universität Wuppertal',
-    },
-    metadata: {
-      type: 'audio',
-      file: 'file1.mp3',
-    },
-    description: 'some text',
-  },
-];
-
 const options = {
   keys: ['id', 'biblio.title'],
 };
+
+const entries: entry[] = data;
 
 const fuse = new Fuse(entries, options);
 
