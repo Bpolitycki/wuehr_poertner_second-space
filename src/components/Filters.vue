@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import IconFilter from './icons/IconFilter.vue';
+import FilterSelection from './FilterSelection.vue'
 import { ref } from 'vue'
 
 const isOpen = ref(false);
@@ -14,11 +15,25 @@ const toggleModal = () => {
     <button id="openModal" class="button is-light px-2" @click="toggleModal">
         <IconFilter /> Filter
     </button>
-    <div :class="{ 'is-active': isOpen }" class="modal">
-        <div class="modal-background"></div>
-        <div class="modal-content">
-            <!-- Any other Bulma elements you want -->
+    <Transition>
+        <div class="modal is-active" v-show="isOpen">
+            <div class="modal-background" @click="() => isOpen = false"></div>
+            <div class="modal-content">
+                <FilterSelection />
+            </div>
+            <button class="modal-close is-large" aria-label="close" @click="toggleModal"></button>
         </div>
-        <button class="modal-close is-large" aria-label="close" @click="toggleModal"></button>
-    </div>
+    </Transition>
 </template>
+
+<style>
+.v-enter-active,
+.v-leave-active {
+    transition: opacity 0.25s ease;
+}
+
+.v-enter-from,
+.v-leave-to {
+    opacity: 0;
+}
+</style>
