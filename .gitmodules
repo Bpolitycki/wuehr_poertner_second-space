@@ -1,0 +1,3 @@
+[submodule "src/assets/data"]
+	path = src/assets/data
+	url = https://github.com/Bpolitycki/wuehr_poertner_data.git
