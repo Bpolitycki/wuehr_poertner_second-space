@@ -1,18 +1,18 @@
-import { describe, it, expect, beforeEach } from 'vitest';
-import { setActivePinia, createPinia } from 'pinia';
-import { useDataStore } from '@/stores/data';
-import type { mediaType } from '@/types/data';
+import { describe, it, expect, beforeEach } from "vitest";
+import { setActivePinia, createPinia } from "pinia";
+import { useDataStore } from "@/stores/data";
+import type { mediaType } from "@/types/data";
 
-describe('All items in filteredEntries', () => {
+describe("All items in filteredEntries", () => {
   beforeEach(() => {
     setActivePinia(createPinia());
   });
 
-  for (const author of ['Paul Wühr']) {
+  for (const author of ["Paul Wühr"]) {
     it(`should belong to ${author} as author`, () => {
       const data = useDataStore();
       data.filterByAuthor(author);
-      expect(data.filter.type).toBe('author');
+      expect(data.filter.type).toBe("author");
       expect(
         data.filteredData.every((entry) => entry.author === author)
       ).toBeTruthy();
@@ -21,17 +21,17 @@ describe('All items in filteredEntries', () => {
     it(`should belong to ${author} and be of type 'image'`, () => {
       const data = useDataStore();
       data.filterByAuthor(author);
-      data.filterByMediaType('image');
+      data.filterByMediaType("image");
       expect(data.filter.bibliographic.author.includes(author)).toBeTruthy();
       expect(
         data.filteredData.every(
-          (entry) => entry.author === author && entry.metadata.type === 'image'
+          (entry) => entry.author === author && entry.metadata.type === "image"
         )
       ).toBeTruthy();
     });
   }
 
-  for (const mediaType of ['audio']) {
+  for (const mediaType of ["audio"]) {
     it(`should be of type ${mediaType}`, () => {
       const data = useDataStore();
       data.filterByMediaType(mediaType as mediaType);
@@ -41,7 +41,7 @@ describe('All items in filteredEntries', () => {
     });
   }
 
-  for (const title of ['So eine Freiheit']) {
+  for (const title of ["So eine Freiheit"]) {
     it(`should have a title which matches ${title}`, () => {
       const data = useDataStore();
       data.filterByTitleOrId(title);

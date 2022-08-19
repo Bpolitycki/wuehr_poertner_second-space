@@ -1,3 +1,3 @@
 <template>
-    <p>The Search Page</p>
+  <p>The Search Page</p>
 </template>

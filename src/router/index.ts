@@ -1,34 +1,39 @@
-import { createRouter, createWebHistory } from 'vue-router';
-import HomeView from '../views/HomeView.vue';
+import { createRouter, createWebHistory } from "vue-router";
+import HomeView from "../views/HomeView.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: '/',
-      name: 'home',
+      path: "/",
+      name: "home",
       component: HomeView,
     },
     {
-      path: '/material',
-      name: 'material',
+      path: "/material",
+      name: "material",
       // route level code-splitting
       // this generates a separate chunk (About.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component: () => import('../views/MaterialView.vue'),
+      component: () => import("../views/MaterialView.vue"),
+      children: [
+        {
+          path: "",
+          component: () => import("../views/MaterialList.vue"),
+        },
+        {
+          path: ":id",
+          component: () => import("../views/MaterialSingleView.vue"),
+        },
+      ],
     },
     {
-      path: '/material/:id',
-      name: 'singleview',
-      component: () => import('../views/MaterialSingleView.vue'),
-    },
-    {
-      path: '/search',
-      name: 'search',
+      path: "/search",
+      name: "search",
       // route level code-splitting
       // this generates a separate chunk (About.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component: () => import('../views/SearchView.vue'),
+      component: () => import("../views/SearchView.vue"),
     },
   ],
 });

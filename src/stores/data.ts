@@ -1,13 +1,13 @@
-import { defineStore } from 'pinia';
-import Fuse from 'fuse.js';
-import type { entry, mediaType } from '@/types/data';
-import { ref, type Ref, computed, type ComputedRef } from 'vue';
+import { defineStore } from "pinia";
+import Fuse from "fuse.js";
+import type { entry, mediaType } from "@/types/data";
+import { ref, type Ref, computed, type ComputedRef } from "vue";
 /* @ts-ignore */
-import data from '@/assets/data/data';
+import data from "@/assets/data/data";
 
-type bibliographic = 'author' | 'mediaType';
+type bibliographic = "author" | "mediaType";
 
-type filterType = bibliographic | 'titleOrId';
+type filterType = bibliographic | "titleOrId";
 
 interface biblioFilter {
   author: string[];
@@ -27,15 +27,15 @@ interface data {
 }
 
 const options = {
-  keys: ['id', 'biblio.title'],
+  keys: ["id", "biblio.title"],
 };
 
 const entries: entry[] = data;
 
 const fuse = new Fuse(entries, options);
 
-export const useDataStore = defineStore('data', () => {
-  const data = entries;
+export const useDataStore = defineStore("data", () => {
+  const data: Ref<entry[]> = ref(entries);
 
   const filter: Ref<filter> = ref({
     type: undefined,
@@ -62,7 +62,7 @@ export const useDataStore = defineStore('data', () => {
 
   const _setFilterType = (type: filterType, value: string) => {
     switch (type) {
-      case 'titleOrId':
+      case "titleOrId":
         filter.value = {
           type,
           idOrTitle: value,
@@ -72,17 +72,19 @@ export const useDataStore = defineStore('data', () => {
           },
         };
         break;
-      case 'author':
+      case "author":
         filter.value = {
           type,
           idOrTitle: undefined,
           bibliographic: {
-            author: [...filter.value.bibliographic.author, value],
+            author: filter.value.bibliographic.author.includes(value)
+              ? filter.value.bibliographic.author.filter((i) => i !== value)
+              : [...filter.value.bibliographic.author, value],
             mediaType: filter.value.bibliographic?.mediaType,
           },
         };
         break;
-      case 'mediaType':
+      case "mediaType":
         filter.value = {
           type,
           idOrTitle: undefined,
@@ -103,36 +105,36 @@ export const useDataStore = defineStore('data', () => {
   };
 
   const filterByAuthor = (author: string) => {
-    _setFilterType('author', author);
+    _setFilterType("author", author);
   };
 
   const filterByMediaType = (type: mediaType) => {
-    _setFilterType('mediaType', type);
+    _setFilterType("mediaType", type);
   };
 
   const filterByTitleOrId = (query: string) => {
-    _setFilterType('titleOrId', query);
+    _setFilterType("titleOrId", query);
   };
 
   const filterEntries = (): void => {
     switch (filter.value.type) {
-      case 'author':
-      case 'mediaType':
-        let results = filteredData.value ? filteredData.value : data;
+      case "author":
+      case "mediaType":
+        let results = data.value;
         results =
-          filter.value.type === 'author'
+          filter.value.bibliographic.author.length > 0
             ? results.filter((i) =>
                 filter.value.bibliographic.author.includes(i.author)
               )
             : results;
         filteredData.value =
-          filter.value.type === 'mediaType'
+          filter.value.bibliographic.mediaType.length > 0
             ? results.filter((i) =>
                 filter.value.bibliographic.mediaType.includes(i.metadata.type)
               )
             : results;
         break;
-      case 'titleOrId':
+      case "titleOrId":
         const search = fuse.search(filter.value.idOrTitle as string);
         filteredData.value =
           search.length > 0 ? search.map((i) => i.item) : undefined;
@@ -144,7 +146,7 @@ export const useDataStore = defineStore('data', () => {
 
   const total: ComputedRef<number> = computed(() => {
     if (filteredData.value) return filteredData.value.length;
-    return data.length;
+    return data.value.length;
   });
 
   return {

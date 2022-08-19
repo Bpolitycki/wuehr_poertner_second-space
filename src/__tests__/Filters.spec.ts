@@ -1,20 +1,24 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, beforeEach } from "vitest";
+import { setActivePinia, createPinia } from "pinia";
+import { mount } from "@vue/test-utils";
+import Filters from "@/components/Filters.vue";
 
-import { mount } from '@vue/test-utils';
-import Filters from '@/components/Filters.vue';
-
-describe('The Filter-component ', () => {
-  it('renders with the correct text and a hidden modal', () => {
-    const wrapper = mount(Filters);
-    const modal = wrapper.find('.modal');
-    expect(wrapper.text()).toContain('Filter');
-    expect(modal.classes()).not.toContain('is-active');
+describe("The Filter-component ", () => {
+  beforeEach(() => {
+    setActivePinia(createPinia());
   });
 
-  it('has an open modal, after the “filter-button“ was clicked', async () => {
+  it("renders with the correct text and a hidden modal", () => {
     const wrapper = mount(Filters);
-    const modal = wrapper.find('.modal');
-    await wrapper.find('#openModal').trigger('click');
-    expect(modal.classes()).toContain('is-active');
+    const modal = wrapper.find(".modal");
+    expect(wrapper.text()).toContain("Filter");
+    expect(modal.isVisible()).not.toBeTruthy();
+  });
+
+  it("has an open modal, after the “filter-button“ was clicked", async () => {
+    const wrapper = mount(Filters);
+    const modal = wrapper.find(".modal");
+    await wrapper.find("#openModal").trigger("click");
+    expect(modal.isVisible()).toBeTruthy();
   });
 });

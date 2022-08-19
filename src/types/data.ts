@@ -1,9 +1,10 @@
 interface bib {
   title: string;
   subtitle?: string;
-  type: 'pre-text' | 'text' | 'epi-text';
+  type: "pre-text" | "text" | "epi-text";
   year?: Date | undefined;
   broadcaster?: string;
+  context: string;
 }
 
 interface archive {
@@ -11,7 +12,7 @@ interface archive {
   institution: string;
 }
 
-type mediaType = 'audio' | 'image';
+type mediaType = "audio" | "image";
 
 interface meta {
   type: mediaType;
@@ -22,7 +23,7 @@ interface meta {
 interface entry {
   id: string;
   author: string;
-  media: 'print' | 'manuscript' | 'audio';
+  media: "print" | "manuscript" | "audio";
   biblio: bib;
   archival: archive;
   metadata: meta;
