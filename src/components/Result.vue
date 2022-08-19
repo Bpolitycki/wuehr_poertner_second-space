@@ -1,7 +1,7 @@
 <script setup lang="ts">
+import SimpleImage from '@/components/SimpleImage.vue'
 import type { entry } from "@/types/data";
 import { toRefs } from "vue";
-import IconSound from '@/components/icons/IconSound.vue'
 /* @ts-ignore */
 import translations from "@/assets/data/translations";
 import { imageUrl } from '@/lib/utils'
@@ -19,11 +19,7 @@ const image = imageUrl(item.value)
         <div class="columns">
             <div class="column is-flex is-4 p-0">
                 <RouterLink class="has-text-info" :to="`/material/${item.id}`">
-                    <figure class="image">
-                        <img v-if="image" class="preview-img p-1" :src="image" alt="" />
-                        <IconSound v-else-if="!image && item.metadata.type === 'audio'" />
-                    </figure>
-
+                    <SimpleImage :img="image" :type="item.metadata.type" />
                 </RouterLink>
             </div>
             <div class="column is-flex is-flex-direction-column is-justify-content-space-between is-8">
@@ -57,27 +53,6 @@ const image = imageUrl(item.value)
 </template>
 
 <style scoped lang="scss">
-figure.image svg {
-    height: 20vh;
-    color: black;
-}
-
-figure.image .preview-img,
-figure.image {
-    max-height: 20vh;
-    width: auto;
-    border: 0.75px solid hsl(0, 0%, 86%);
-}
-
-figure.image .preview-img:hover {
-    border-color: $primary;
-}
-
-figure.image svg:hover {
-    color: $primary;
-    border-color: $primary;
-}
-
 ul {
     list-style: none;
     padding: 0;
