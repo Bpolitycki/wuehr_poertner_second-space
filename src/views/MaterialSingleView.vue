@@ -26,7 +26,7 @@ const relatedEntries = data.value.filter(i => i.biblio.context === entry.biblio.
             <div class="columns mt-2">
                 <div class="column">
                     <ImageZoom v-if="entry.metadata.type === 'image'" :item="entry" :width="'100'" />
-                    <StartStopIcon :entry="entry" />
+                    <StartStopIcon :entry="entry" v-else />
                 </div>
                 <div class="column">
                     <InfoCard :item="entry" />
