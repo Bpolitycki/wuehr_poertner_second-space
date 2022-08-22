@@ -14,7 +14,7 @@ describe("All items in filteredEntries", () => {
       data.filterByAuthor(author);
       expect(data.filter.type).toBe("author");
       expect(
-        data.filteredData.every((entry) => entry.author === author)
+        data.filteredData?.every((entry) => entry.author === author)
       ).toBeTruthy();
     });
 
@@ -24,7 +24,7 @@ describe("All items in filteredEntries", () => {
       data.filterByMediaType("image");
       expect(data.filter.bibliographic.author.includes(author)).toBeTruthy();
       expect(
-        data.filteredData.every(
+        data.filteredData?.every(
           (entry) => entry.author === author && entry.metadata.type === "image"
         )
       ).toBeTruthy();
