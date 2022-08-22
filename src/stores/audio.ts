@@ -31,7 +31,7 @@ export const useAudioStore = defineStore('audio', () => {
   function resetAudio() {
     item.value = undefined;
     isPlaying.value = false;
-    time.value = '';
+    time.value = 0;
   }
 
   return {
