@@ -42,7 +42,7 @@ const setImage = () => {
     }
 }
 
-const handleZoom = (e) => {
+const handleZoom = (e: any) => {
     const { k, x, y } = e.transform;
     transformStyles.value.scale = k;
     transformStyles.value.translateX = x;
@@ -123,7 +123,7 @@ onUnmounted(() => {
             <button class="button" @click="resetZoom"><span class="icon">
                     <IconReset />
                 </span></button>
-            <button class="button" @click="zoomOut"><span class="icon">
+            <button class="button" @click="zoomIn"><span class="icon">
                     <IconZoomIn />
                 </span></button>
             <button class="button" @click="pageForward" :disabled="!(item.metadata.files !== undefined && index + 1 <

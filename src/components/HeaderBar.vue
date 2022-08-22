@@ -46,6 +46,10 @@ const route = useRoute()
 a {
     color: $primary  !important;
 
+    .is-small svg {
+        height: 1rem;
+    }
+
     &[role='button'] {
         svg {
             height: calc($size-6 * 2);
