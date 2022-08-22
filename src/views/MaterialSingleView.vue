@@ -3,9 +3,11 @@ import HeaderBar from '@/components/HeaderBar.vue';
 import ImageZoom from '@/components/ImageZoom.vue'
 import InfoCard from '@/components/InfoCard.vue'
 import Result from '@/components/Result.vue';
+import StartStopIcon from '@/components/StartStopIcon.vue';
 import { useDataStore } from "@/stores/data";
 import { storeToRefs } from "pinia";
 import { useRoute } from 'vue-router';
+
 
 
 
@@ -23,7 +25,8 @@ const relatedEntries = data.value.filter(i => i.biblio.context === entry.biblio.
             <HeaderBar :item="entry" />
             <div class="columns mt-2">
                 <div class="column">
-                    <ImageZoom :item="entry" :width="'100'" />
+                    <ImageZoom v-if="entry.metadata.type === 'image'" :item="entry" :width="'100'" />
+                    <StartStopIcon :entry="entry" />
                 </div>
                 <div class="column">
                     <InfoCard :item="entry" />
