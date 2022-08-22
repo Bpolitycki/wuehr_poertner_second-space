@@ -107,8 +107,8 @@ onUnmounted(() => {
 </script>
 
 <template>
-    <div class="has-background-light  pt-0">
-        <div class="buttons are-normal has-addons has-background-grey p-0 is-justify-content-space-between">
+    <div class="has-background-light box px-0 pt-0">
+        <div class="buttons are-normal has-addons has-background-primary-light p-0 is-justify-content-space-between">
             <button class="button" @click="pageBackwards" :disabled="!(index - 1 >=
             0)">
                 <span class="icon">
@@ -146,12 +146,6 @@ onUnmounted(() => {
 </template>
 
 <style scoped lang="scss">
-.wrapper {
-    height: 100%;
-
-}
-
-
 .button {
     background-color: none;
     background: none;
@@ -160,6 +154,14 @@ onUnmounted(() => {
     border: none;
     color: white;
 
+    &:active,
+    &:focus {
+        color: white;
+    }
+
+    &:hover {
+        color: $warning;
+    }
 
     &:disabled {
         border: none;

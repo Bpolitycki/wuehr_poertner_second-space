@@ -30,7 +30,7 @@ onMounted(() => {
 
 <template>
     <div class="has-background-light is-flex is-justify-content-center is-align-items-center  pt-0">
-        <button @click="startStop">
+        <button @click="startStop" class="has-text-black">
             <IconPause v-if="isPlaying" />
             <IconPlay v-else />
         </button>
