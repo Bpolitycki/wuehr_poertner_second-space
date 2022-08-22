@@ -5,7 +5,7 @@ import { ref, type Ref, computed, type ComputedRef } from 'vue';
 export const useAudioStore = defineStore('audio', () => {
   const item: Ref<entry | undefined> = ref(undefined);
   const isPlaying: Ref<boolean> = ref(false);
-  const time: Ref<string> = ref('');
+  const time: Ref<number> = ref(0);
 
   const audioUrl: ComputedRef<string | undefined> = computed(() => {
     if (item.value)
@@ -24,7 +24,7 @@ export const useAudioStore = defineStore('audio', () => {
     isPlaying.value = state;
   }
 
-  function updateTime(playTime: string) {
+  function updateTime(playTime: number) {
     time.value = playTime;
   }
 

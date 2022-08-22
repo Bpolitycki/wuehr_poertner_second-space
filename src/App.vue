@@ -4,6 +4,7 @@ import { RouterLink, RouterView } from "vue-router";
 import IconHome from "./components/icons/IconHome.vue";
 import IconSearch from "./components/icons/IconSearch.vue";
 import IconExpand from "./components/icons/IconExpand.vue";
+import AudioPlayer from './components/AudioPlayer.vue';
 import { useRoute } from "vue-router";
 const route = useRoute();
 </script>
@@ -11,6 +12,7 @@ const route = useRoute();
 <template>
     <main>
         <RouterView :key="route.fullPath" />
+        <AudioPlayer />
     </main>
 
     <footer>
