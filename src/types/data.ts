@@ -1,18 +1,31 @@
+interface addtional {
+  length?: string;
+  producer?: string;
+  cast?: string[];
+}
+
 interface bib {
   title: string;
   subtitle?: string;
-  type: "pre-text" | "text" | "epi-text";
-  year?: Date | undefined;
+  description?: string;
+  type: 'letter' | 'note' | 'draft' | 'tape';
+  year?: string;
+  dateBroadcast?: string;
+  radiostation?: string;
   broadcaster?: string;
   context: string;
+  addtional?: addtional;
 }
 
 interface archive {
-  place: string;
-  institution: string;
+  instution: string;
+  format?: string;
+  scope?: string;
+  description?: string;
+  id?: string;
 }
 
-type mediaType = "audio" | "image";
+type mediaType = 'audio' | 'image';
 
 interface meta {
   type: mediaType;
@@ -21,13 +34,13 @@ interface meta {
 }
 
 interface entry {
+  showcase: string | null;
   id: string;
   author: string;
-  media: "print" | "manuscript" | "audio";
+  media: 'print' | 'manuscript' | 'audio';
   biblio: bib;
   archival: archive;
   metadata: meta;
-  description: string;
 }
 
 export type { entry, mediaType };

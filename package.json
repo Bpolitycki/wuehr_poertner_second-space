@@ -2,9 +2,11 @@
   "name": "wuehr_poertner_second-space",
   "version": "0.0.0",
   "scripts": {
-    "dev": "vite",
+    "convert": "cd ./src/assets/data && python convert.py && cd ../../..",
+    "dev": "pnpm run convert && vite",
     "build": "run-p type-check build-only",
     "build_app": "npx cap sync && npx cap open ios",
+    "app": "pnpm run build && pnpm run build_app",
     "preview": "vite preview --port 4173",
     "test:unit": "vitest --environment jsdom",
     "build-only": "vite build",
