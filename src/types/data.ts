@@ -1,5 +1,5 @@
-interface addtional {
-  length?: string;
+interface additional {
+  duration?: string;
   producer?: string;
   cast?: string[];
 }
@@ -12,14 +12,13 @@ interface bib {
   year?: string;
   dateBroadcast?: string;
   radiostation?: string;
-  broadcaster?: string;
   context: string;
-  addtional?: addtional;
+  additional?: additional;
 }
 
 interface archive {
-  instution: string;
-  format?: string;
+  institution: string;
+  Format?: string;
   scope?: string;
   description?: string;
   id?: string;

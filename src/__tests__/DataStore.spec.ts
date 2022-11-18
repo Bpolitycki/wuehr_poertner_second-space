@@ -46,7 +46,11 @@ describe("All items in filteredEntries", () => {
       const data = useDataStore();
       data.filterByTitleOrId(title);
       expect(
-        data.filteredData?.every((entry) => entry.biblio.title.includes(title))
+        data.filteredData?.every(
+          (entry) =>
+            entry.biblio.title.includes(title) ||
+            entry.biblio.context.includes(title)
+        )
       ).toBeTruthy();
     });
   }

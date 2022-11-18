@@ -1,8 +1,8 @@
-import { defineStore } from 'pinia';
-import type { entry, mediaType } from '@/types/data';
-import { ref, type Ref, computed, type ComputedRef } from 'vue';
+import { defineStore } from "pinia";
+import type { entry, mediaType } from "@/types/data";
+import { ref, type Ref, computed, type ComputedRef } from "vue";
 
-export const useAudioStore = defineStore('audio', () => {
+export const useAudioStore = defineStore("audio", () => {
   const item: Ref<entry | undefined> = ref(undefined);
   const isPlaying: Ref<boolean> = ref(false);
   const time: Ref<number> = ref(0);

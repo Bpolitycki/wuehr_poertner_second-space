@@ -26,6 +26,8 @@ interface data {
   filter: filter;
 }
 
+type filterContext = 'search' | 'archive';
+
 const options = {
   keys: ['id', 'biblio.title', 'biblio.context'],
 };
@@ -36,6 +38,8 @@ const fuse = new Fuse(entries, options);
 
 export const useDataStore = defineStore('data', () => {
   const data: Ref<entry[]> = ref(entries);
+
+  const filterContext: Ref<filterContext | undefined> = ref(undefined);
 
   const filter: Ref<filter> = ref({
     type: undefined,
@@ -58,6 +62,7 @@ export const useDataStore = defineStore('data', () => {
       },
     };
     filteredData.value = undefined;
+    filterContext.value = undefined;
   };
 
   const _setFilterType = (type: filterType, value: string) => {
@@ -151,6 +156,7 @@ export const useDataStore = defineStore('data', () => {
 
   return {
     data,
+    filterContext,
     filteredData,
     filter,
     filterByAuthor,

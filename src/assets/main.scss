@@ -18,3 +18,10 @@ $navbar-item-hover-color: $primary;
     }
   }
 }
+
+.is-size-65 {
+  font-size: 0.85rem;
+  h5 {
+    font-size: 1rem !important;
+  }
+}

@@ -15,12 +15,16 @@ specifiers:
   '@vue/test-utils': ^2.0.2
   '@vue/tsconfig': ^0.1.3
   bulma: ^0.9.4
+  bulma-checkbox: ^1.2.1
+  bulma-checkradio: ^2.1.3
   d3-selection: ^3.0.0
   d3-zoom: ^3.0.0
   eslint: ^8.22.0
   eslint-plugin-vue: ^8.7.1
   fuse.js: ^6.6.2
+  i: ^0.3.7
   jsdom: ^19.0.0
+  npm: ^9.1.2
   npm-run-all: ^4.1.5
   pinia: ^2.0.20
   prettier: ^2.7.1
@@ -34,9 +38,13 @@ specifiers:
 
 dependencies:
   bulma: 0.9.4
+  bulma-checkbox: 1.2.1
+  bulma-checkradio: 2.1.3
   d3-selection: 3.0.0
   d3-zoom: 3.0.0
   fuse.js: 6.6.2
+  i: 0.3.7
+  npm: 9.1.2
   pinia: 2.0.20_j6bzmzd4ujpabbp5objtwxyjp4
   vue: 3.2.37
   vue-router: 4.1.3_vue@3.2.37
@@ -824,6 +832,18 @@ packages:
   /buffer-crc32/0.2.13:
     resolution: {integrity: sha512-VO9Ht/+p3SN7SKWqcrgEzjGbRSJYTx+Q1pTQC0wrWqHx0vpJraQ6GtHx8tvcg1rlK1byhU5gccxgOgj7B0TDkQ==}
     dev: true
+
+  /bulma-checkbox/1.2.1:
+    resolution: {integrity: sha512-Ad7kSzwYwHLYyow92IJPz9jgolDDo5ivlFdSBe7W4LR9WnLt/Gd2iE07m3uhoU/g37oIZcMHNC33ZxJKqAuSzQ==}
+    dependencies:
+      bulma: 0.9.4
+    dev: false
+
+  /bulma-checkradio/2.1.3:
+    resolution: {integrity: sha512-8OmZ7PURyftNLGXSTNAYNTJHIe0OkoH/8z9iWfSXGxiv3AlrKneMtiVpBKofXsvc9ZHBUI1YjefiW5WFhgFgAQ==}
+    dependencies:
+      bulma: 0.9.4
+    dev: false
 
   /bulma/0.9.4:
     resolution: {integrity: sha512-86FlT5+1GrsgKbPLRRY7cGDg8fsJiP/jzTqXXVqiUZZ2aZT8uemEOHlU1CDU+TxklPEZ11HZNNWclRBBecP4CQ==}
@@ -1858,6 +1878,11 @@ packages:
       - supports-color
     dev: true
 
+  /i/0.3.7:
+    resolution: {integrity: sha512-FYz4wlXgkQwIPqhzC5TdNMLSE5+GS1IIDJZY/1ZiEPCT2S3COUVZeT5OW4BmW4r5LHLQuOosSwsvnroG9GR59Q==}
+    engines: {node: '>=0.4'}
+    dev: false
+
   /iconv-lite/0.6.3:
     resolution: {integrity: sha512-4fCk79wshMdzMp2rH06qWrJE4iolqLhCUH+OiuIgU++RB0+94NlDL81atO7GX55uUKueo0txHNtvEyI6D7WdMw==}
     engines: {node: '>=0.10.0'}
@@ -2309,6 +2334,81 @@ packages:
       shell-quote: 1.7.3
       string.prototype.padend: 3.1.3
     dev: true
+
+  /npm/9.1.2:
+    resolution: {integrity: sha512-qOFg33/5YCHLArtRBep9HJydPZURbCwt8nxwXDRHZO9PZtTUMCo1C4iXBFPW1TxnzAdHscdw76ihbupdmL7cmw==}
+    engines: {node: ^14.17.0 || ^16.13.0 || >=18.0.0}
+    hasBin: true
+    dev: false
+    bundledDependencies:
+      - '@isaacs/string-locale-compare'
+      - '@npmcli/arborist'
+      - '@npmcli/config'
+      - '@npmcli/map-workspaces'
+      - '@npmcli/package-json'
+      - '@npmcli/run-script'
+      - abbrev
+      - archy
+      - cacache
+      - chalk
+      - ci-info
+      - cli-columns
+      - cli-table3
+      - columnify
+      - fastest-levenshtein
+      - fs-minipass
+      - glob
+      - graceful-fs
+      - hosted-git-info
+      - ini
+      - init-package-json
+      - is-cidr
+      - json-parse-even-better-errors
+      - libnpmaccess
+      - libnpmdiff
+      - libnpmexec
+      - libnpmfund
+      - libnpmhook
+      - libnpmorg
+      - libnpmpack
+      - libnpmpublish
+      - libnpmsearch
+      - libnpmteam
+      - libnpmversion
+      - make-fetch-happen
+      - minimatch
+      - minipass
+      - minipass-pipeline
+      - mkdirp
+      - ms
+      - node-gyp
+      - nopt
+      - npm-audit-report
+      - npm-install-checks
+      - npm-package-arg
+      - npm-pick-manifest
+      - npm-profile
+      - npm-registry-fetch
+      - npm-user-validate
+      - npmlog
+      - p-map
+      - pacote
+      - parse-conflict-json
+      - proc-log
+      - qrcode-terminal
+      - read
+      - read-package-json
+      - read-package-json-fast
+      - rimraf
+      - semver
+      - ssri
+      - tar
+      - text-table
+      - tiny-relative-date
+      - treeverse
+      - validate-npm-package-name
+      - which
+      - write-file-atomic
 
   /nth-check/2.1.1:
     resolution: {integrity: sha512-lqjrjmaOoAnWfMmBPL+XNnynZh2+swxiX3WUE0s4yEHI6m+AwrK2UZOimIRl3X/4QctVqS8AiZjFqyOGrMXb/w==}

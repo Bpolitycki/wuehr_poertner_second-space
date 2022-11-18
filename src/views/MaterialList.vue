@@ -3,9 +3,17 @@ import Filters from "@/components/Filters.vue";
 import Result from "@/components/Result.vue";
 import { useDataStore } from "@/stores/data";
 import { storeToRefs } from "pinia";
+import { onMounted } from "vue";
 
 const store = useDataStore();
-const { filteredData, data } = storeToRefs(store);
+const { filterContext, filteredData, data } = storeToRefs(store);
+
+onMounted(() => {
+    if (filterContext.value !== 'archive') {
+        store.reset();
+    }
+
+})
 </script>
 
 <template>

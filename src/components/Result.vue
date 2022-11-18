@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import SimpleImage from '@/components/SimpleImage.vue'
-import UnstyledList from '@/components/UnstyledList.vue';
+import SimpleImage from "@/components/SimpleImage.vue";
+import UnstyledList from "@/components/UnstyledList.vue";
 import type { entry } from "@/types/data";
 import { toRefs } from "vue";
 /* @ts-ignore */
 import translations from "@/assets/data/translations";
-import { imageUrl } from '@/lib/utils'
+import { imageUrl } from "@/lib/utils";
 const props = defineProps<{
     item: entry;
     hr: boolean;
@@ -14,44 +14,50 @@ const props = defineProps<{
 }>();
 
 const { item } = toRefs(props);
-const image = imageUrl(item.value)
+const image = imageUrl(item.value);
 </script>
 
 <template>
     <div class="content">
-        <div class="columns">
-            <div class="column is-flex is-4 p-0" v-if="showImg">
-                <RouterLink class="has-text-info" :to="`/material/${item.id}?context=${context}`">
+        <RouterLink class="has-text-info" :to="`/material/${item.id}?context=${context}`">
+            <div class="columns">
+                <div class="column is-flex is-4 p-0" v-if="showImg">
+
                     <SimpleImage :img="image" :type="item.metadata.type" />
-                </RouterLink>
-            </div>
-            <div class="column is-flex is-flex-direction-column is-justify-content-space-between"
-                :class="{ 'is-8': showImg }">
-                <div>
-                    <RouterLink class="has-text-info" :to="`/material/${item.id}?context=${context}`">
+
+                </div>
+                <div class="column is-flex is-flex-direction-column is-justify-content-space-between"
+                    :class="{ 'is-8': showImg }">
+                    <div>
                         <h5 class="title is-5 has-text-primary">{{ item.biblio.title }}</h5>
-                    </RouterLink>
-                    <UnstyledList>
-                        <li>Vitrine: To-Do</li>
-                        <li>
-                            Werkkontext:
-                            <span class="is-italic">{{ item.biblio.context }}</span>
-                        </li>
-                    </UnstyledList>
-                </div>
-                <div class="tags is-flex">
-                    <span class="tag is-info is-light">{{
-                            translations.translations.biblio[item.biblio.type]
-                    }}</span>
-                    <span class="tag is-success is-light">{{
-                            translations.translations.media[item.media]
-                    }}</span>
-                    <span class="tag is-warning is-light">{{
-                            translations.translations.metadata[item.metadata.type]
-                    }}</span>
+                        <UnstyledList class="has-text-black">
+                            <li v-if="item.media !== 'audio'">
+                                <span class="has-text-weight-medium">Vitrine / Exponat</span>:
+                                {{
+                                        item.showcase === null
+                                            ? "Nummer wird noch vergeben"
+                                            : item.showcase
+                                }}
+                            </li>
+                            <li>
+                                <span class="has-text-weight-medium">Werkkontext</span>:
+                                <span class="is-italic">{{ item.biblio.context }}</span>
+                            </li>
+                            <li>
+                                <span class="has-text-weight-medium">Texttyp</span>: {{
+                                        translations.translations.biblio[item.biblio.type]
+                                }}
+                            </li>
+                            <li>
+                                <span class="has-text-weight-medium">Dokumenttyp</span>: {{
+                                        translations.translations.media[item.media]
+                                }}
+                            </li>
+                        </UnstyledList>
+                    </div>
                 </div>
             </div>
-        </div>
+        </RouterLink>
         <hr v-if="hr" />
     </div>
 </template>
