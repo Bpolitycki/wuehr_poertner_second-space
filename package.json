@@ -30,6 +30,7 @@
     "@capacitor/cli": "^3.7.0",
     "@capacitor/core": "^3.7.0",
     "@capacitor/ios": "^3.7.0",
+    "@rollup/plugin-dynamic-import-vars": "^2.0.1",
     "@rushstack/eslint-patch": "^1.1.4",
     "@types/d3-selection": "^3.0.3",
     "@types/d3-zoom": "^3.0.1",
