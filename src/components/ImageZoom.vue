@@ -4,16 +4,22 @@ import IconZoomOut from "./icons/IconZoomOut.vue";
 import IconReset from "./icons/IconReset.vue";
 import IconZoomIn from "./icons/IconZoomIn.vue";
 import IconNext from "./icons/IconNext.vue";
+import IconMax from "./icons/IconMax.vue";
+import IconShrink from "./icons/IconShrink.vue";
 import { zoom } from "d3-zoom";
 import { select } from "d3-selection";
 import type { entry } from "@/types/data";
-import { computed, ref, onMounted, onUnmounted } from "vue";
+import { computed, ref, onMounted, onUnmounted, type Ref } from "vue";
 import { imageUrl } from "@/lib/utils";
+
+type modes = 'regular' | 'fullscreen';
 
 const props = defineProps<{
     item: entry;
     width: string;
 }>();
+
+const mode: Ref<modes> = ref('regular')
 
 const svg = ref<SVGElement>();
 const g = ref<SVGGElement>();
@@ -110,7 +116,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-    <div class="has-background-light box px-0 pt-0">
+    <div class="has-background-light box px-0 pt-0" :class="{ 'is-fullscreen': mode === 'fullscreen' }">
         <div class="buttons are-normal has-addons has-background-primary-light p-0 is-justify-content-space-between">
             <button class="button" @click="pageBackwards" :disabled="!(index - 1 >= 0)">
                 <span class="icon">
@@ -125,6 +131,12 @@ onUnmounted(() => {
             <button class="button" @click="resetZoom">
                 <span class="icon">
                     <IconReset />
+                </span>
+            </button>
+            <button class="button" @click="mode = mode === 'regular' ? 'fullscreen' : 'regular'">
+                <span class="icon">
+                    <IconMax v-if="mode === 'regular'" />
+                    <IconShrink v-else />
                 </span>
             </button>
             <button class="button" @click="zoomIn">
@@ -161,6 +173,14 @@ onUnmounted(() => {
 </template>
 
 <style scoped lang="scss">
+.is-fullscreen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 9999
+}
 .button {
     background-color: none;
     background: none;
