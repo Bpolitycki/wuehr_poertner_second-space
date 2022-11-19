@@ -1,9 +1,9 @@
-import { CapacitorConfig } from "@capacitor/cli";
+import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: "com.wuehrpoertner.app",
-  appName: "o-ton-spuren",
-  webDir: "dist",
+  appId: 'com.wuehrpoertner.app',
+  appName: 'o-ton-spuren',
+  webDir: 'dist',
   bundledWebRuntime: false,
 };
 
