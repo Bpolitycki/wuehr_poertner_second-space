@@ -41,7 +41,12 @@ describe('All items in filteredEntries', () => {
     });
   }
 
-  for (const title of ['Freiheit', 'Preislied']) {
+  for (const title of [
+    'So eine Freiheit',
+    'Preislied',
+    'Verirrhaus',
+    'Soundseeing',
+  ]) {
     it(`should have a title which matches ${title}`, () => {
       const data = useDataStore();
       data.filterByTitleOrId(title);

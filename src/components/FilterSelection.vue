@@ -61,7 +61,7 @@ const contexts = data.value.reduce((contexts, item) => {
                     </div>
                 </div>
             </div>
-            <hr />
+            <!-- <hr />
             <div class="field">
                 <h5 class="title is-6 mb-2">Auf Medientyp eingrenzen</h5>
                 <div class="field mb-1" v-for="mediaType in ['audio', 'image']">
@@ -71,7 +71,7 @@ const contexts = data.value.reduce((contexts, item) => {
                         :id="`check${mediaType}`" :name="`check${mediaType}`" />
                     <label :for="`check${mediaType}`">{{ translations.translations.metadata[mediaType] }}</label>
                 </div>
-            </div>
+            </div> -->
             <hr />
             <div class="buttons field mt-2">
                 <button class="button is-success" @click="() => $emit('close')">

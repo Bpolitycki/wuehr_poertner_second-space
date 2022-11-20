@@ -185,7 +185,7 @@ export const useDataStore = defineStore('data', () => {
             }
             filteredData.value = results.length > 0 ? results : undefined;
           } else {
-            const query = filter.value.idOrTitle
+            /*  const query = filter.value.idOrTitle
               .toLocaleLowerCase()
               .split(' ')
               .filter((i) => i.length > 0);
@@ -195,6 +195,12 @@ export const useDataStore = defineStore('data', () => {
                   i.biblio.context.toLowerCase().includes(w) ||
                   i.biblio.title.toLowerCase().includes(w)
               )
+            ); */
+            const query = filter.value.idOrTitle.toLocaleLowerCase();
+            const results = data.value.filter(
+              (i) =>
+                i.biblio.context.toLowerCase().includes(query) ||
+                i.biblio.title.toLowerCase().includes(query)
             );
             filteredData.value = results.length > 0 ? results : undefined;
           }

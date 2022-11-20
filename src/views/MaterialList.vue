@@ -27,7 +27,7 @@ onMounted(() => {
             <Filters />
         </div>
         <div class="container mt-6">
-            <div v-if="filteredData">
+            <div v-if="filteredData !== undefined">
                 <Result :item="entry" :hr="index !== filteredData.length - 1" :context="'material'" :showImg="true"
                     v-for="(entry, index) in filteredData" />
             </div>

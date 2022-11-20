@@ -18,7 +18,7 @@ interface bib {
 
 interface archive {
   institution: string;
-  ormat?: string;
+  Format?: string;
   scope?: string;
   description?: string;
   id?: string;
