@@ -29,7 +29,8 @@ interface data {
 type filterContext = 'search' | 'archive';
 
 const options = {
-  keys: ['id', 'biblio.title', 'biblio.context'],
+  keys: ['biblio.title', 'biblio.context'],
+  includeScore: true,
 };
 
 const compareEntries = (a: entry, b: entry) => {
@@ -52,7 +53,7 @@ const entries: entry[] = data;
 const fuse = new Fuse(entries, options);
 
 export const useDataStore = defineStore('data', () => {
-  const data: Ref<entry[]> = ref(entries);
+  const data: Ref<entry[]> = ref(entries.sort(compareEntries));
 
   const filterContext: Ref<filterContext | undefined> = ref(undefined);
 
@@ -159,11 +160,54 @@ export const useDataStore = defineStore('data', () => {
             : results.sort(compareEntries);
         break;
       case 'titleOrId':
-        const search = fuse.search(filter.value.idOrTitle as string);
+        if (filter.value.idOrTitle !== undefined) {
+          if (filter.value.idOrTitle.match(/^\d?,?\d?$/) !== null) {
+            const query = filter.value.idOrTitle;
+            let results;
+            if (query.match(/^\d,?$/) !== null) {
+              const showroom = Number(query.split(',')[0]);
+              results = data.value.filter(
+                (i) => i.showcase !== null && i.showcase[0] === showroom
+              );
+            } else if (query.startsWith(',')) {
+              const object = Number(query.split(',')[1]);
+              results = data.value.filter(
+                (i) => i.showcase !== null && i.showcase[1] === object
+              );
+            } else {
+              const showcaseTuple = query.split(',').map((i) => Number(i));
+              results = data.value.filter(
+                (i) =>
+                  i.showcase !== null &&
+                  i.showcase[0] === showcaseTuple[0] &&
+                  i.showcase[1] === showcaseTuple[1]
+              );
+            }
+            filteredData.value = results.length > 0 ? results : undefined;
+          } else {
+            const query = filter.value.idOrTitle
+              .toLocaleLowerCase()
+              .split(' ')
+              .filter((i) => i.length > 0);
+            const results = data.value.filter((i) =>
+              query.some(
+                (w) =>
+                  i.biblio.context.toLowerCase().includes(w) ||
+                  i.biblio.title.toLowerCase().includes(w)
+              )
+            );
+            filteredData.value = results.length > 0 ? results : undefined;
+          }
+
+          /* const search = fuse.search(filter.value.idOrTitle as string);
+        console.log(search.map((i) => i.item));
         filteredData.value =
           search.length > 0
             ? search.map((i) => i.item).sort(compareEntries)
-            : undefined;
+            : undefined; */
+        } else {
+          filteredData.value = undefined;
+        }
         break;
       default:
         break;

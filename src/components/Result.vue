@@ -31,13 +31,10 @@ const image = imageUrl(item.value);
                     <div>
                         <h5 class="title is-5 has-text-primary">{{ item.biblio.title }}</h5>
                         <UnstyledList class="has-text-black">
-                            <li v-if="item.media !== 'audio'">
-                                <span class="has-text-weight-medium">Vitrine / Exponat</span>:
-                                {{
-                                        item.showcase === null
-                                            ? "Nummer wird noch vergeben"
-                                            : item.showcase
-                                }}
+                            <li
+                                v-if="item.media !== 'audio' && item.showcase !== null && !item.biblio.context.includes('Soundseeing')">
+                                <span class="has-text-weight-medium">Vitrine</span>: {{ item.showcase[0] }} / <span
+                                    class="has-text-weight-medium">Exponat</span>: {{ item.showcase[1] }}
                             </li>
                             <li>
                                 <span class="has-text-weight-medium">Werkkontext</span>:
