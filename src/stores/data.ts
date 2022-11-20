@@ -32,6 +32,21 @@ const options = {
   keys: ['id', 'biblio.title', 'biblio.context'],
 };
 
+const compareEntries = (a: entry, b: entry) => {
+  if (a.showcase !== null && b.showcase !== null) {
+    if (a.showcase[0] !== b.showcase[0]) {
+      if (a.showcase[0] > b.showcase[0]) return 1;
+      if (a.showcase[0] < b.showcase[0]) return -1;
+      return 0;
+    } else {
+      if (a.showcase[1] > b.showcase[1]) return 1;
+      if (a.showcase[1] < b.showcase[1]) return -1;
+      return 0;
+    }
+  }
+  return 0;
+};
+
 const entries: entry[] = data;
 
 const fuse = new Fuse(entries, options);
@@ -128,21 +143,27 @@ export const useDataStore = defineStore('data', () => {
         let results = data.value;
         results =
           filter.value.bibliographic.author.length > 0
-            ? results.filter((i) =>
-                filter.value.bibliographic.author.includes(i.author)
-              )
-            : results;
+            ? results
+                .filter((i) =>
+                  filter.value.bibliographic.author.includes(i.author)
+                )
+                .sort(compareEntries)
+            : results.sort(compareEntries);
         filteredData.value =
           filter.value.bibliographic.mediaType.length > 0
-            ? results.filter((i) =>
-                filter.value.bibliographic.mediaType.includes(i.metadata.type)
-              )
-            : results;
+            ? results
+                .filter((i) =>
+                  filter.value.bibliographic.mediaType.includes(i.metadata.type)
+                )
+                .sort(compareEntries)
+            : results.sort(compareEntries);
         break;
       case 'titleOrId':
         const search = fuse.search(filter.value.idOrTitle as string);
         filteredData.value =
-          search.length > 0 ? search.map((i) => i.item) : undefined;
+          search.length > 0
+            ? search.map((i) => i.item).sort(compareEntries)
+            : undefined;
         break;
       default:
         break;

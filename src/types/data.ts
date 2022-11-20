@@ -18,7 +18,7 @@ interface bib {
 
 interface archive {
   institution: string;
-  Format?: string;
+  ormat?: string;
   scope?: string;
   description?: string;
   id?: string;
@@ -33,7 +33,7 @@ interface meta {
 }
 
 interface entry {
-  showcase: string | null;
+  showcase: [number, number] | null;
   id: string;
   author: string;
   media: 'print' | 'manuscript' | 'audio';
