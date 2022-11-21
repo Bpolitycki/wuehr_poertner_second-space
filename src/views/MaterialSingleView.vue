@@ -53,7 +53,7 @@ const relatedEntries = data.value.filter(
         </article>
     </section>
 
-    <secion class="section">
+    <secion class="section" v-if="relatedEntries.length > 0">
         <div class="container">
             <h5 class="title is-5">Verwandte Einträge</h5>
             <div class="related-wrapper is-flex mb-4 has-background-light p-2">
