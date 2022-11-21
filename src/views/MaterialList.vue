@@ -29,11 +29,11 @@ onMounted(() => {
         <div class="container mt-6">
             <div v-if="filteredData !== undefined">
                 <Result :item="entry" :hr="index !== filteredData.length - 1" :context="'material'" :showImg="true"
-                    v-for="(entry, index) in filteredData" />
+                    v-for="(entry, index) in filteredData" :key="entry.id" />
             </div>
             <div v-else>
                 <Result :item="entry" :hr="index !== data.length - 1" :context="'material'" :showImg="true"
-                    v-for="(entry, index) in data" />
+                    v-for="(entry, index) in data" :key="entry.id" />
             </div>
         </div>
     </section>

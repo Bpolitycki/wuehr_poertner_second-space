@@ -74,20 +74,20 @@ onMounted(() => {
             <div class="modal" :class="{ 'is-active': showInfo }">
                 <div class="modal-background" @click="() => showInfo = false"></div>
                 <div class="modal-content">
-                    <div class="box is-flex is-flex-direction-column p-3">
+                    <div class="box is-flex is-flex-direction-column pr-0">
                         <button class="button is-rounded close is-align-self-flex-end" aria-label="close"
                             @click="() => showInfo = false">
                             <IconClose />
                         </button>
-                        <h6 class=" title is-6">Erläuterung zur Suche</h6>
-                        <p class="mb-4">In im sog. ‚second Space‘ kann entweder nach dem Titel eines Exponats oder
+                        <h6 class=" title is-6 mx-4">Erläuterung zur Suche</h6>
+                        <p class="mb-4 mx-4">In im sog. ‚second Space‘ kann entweder nach dem Titel eines Exponats oder
                             nach
                             der Nummer
                             eines Ausstellungsobjekt gesucht werden. Die Nummer eines Objekts ist codiert durch die
                             Nummer der Vitrine und des Exponats
                             – diese findet sich auf dem jeweiligen Legendentext. Beispiele:
                         </p>
-                        <UnstyledListVue>
+                        <UnstyledListVue :class="'mx-4 mb-3'">
                             <li><span class="has-text-weight-medium">6,3</span>: Suche nach Vitrine 6 Exponat 3</li>
                             <li><span class="has-text-weight-medium">6</span>: Suche nach Vitrine 6</li>
                             <li><span class="has-text-weight-medium">,3</span>: Suche nach allen Exponaten 3</li>
@@ -119,7 +119,7 @@ onMounted(() => {
             </article> -->
 
             <Result v-else-if="filteredData && !isLoading" :item="entry" :hr="index !== filteredData.length - 1"
-                :context="'search'" :showImg="true" v-for="(entry, index) in filteredData" />
+                :context="'search'" :showImg="true" v-for="(entry, index) in filteredData" :key="entry.id" />
             <LoadingSpinner :class="'mt-6'" v-if="isLoading" />
         </div>
     </section>
