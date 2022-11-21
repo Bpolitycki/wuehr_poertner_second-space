@@ -13,18 +13,18 @@ const { filteredData, filter, data } = storeToRefs(store);
 
 const authors = data.value.reduce((allAuthors, item) => {
     const author = item.author;
-    if (!allAuthors.includes(author)) {
+    if (!allAuthors.includes(author) && ["Johann M. Kamps", "Paul Pörtner", "Paul Wühr"].includes(author)) {
         allAuthors.push(author);
     }
-    return allAuthors;
+    return allAuthors.sort();
 }, [] as string[]);
 
 const contexts = data.value.reduce((contexts, item) => {
     const context = item.biblio.context;
-    if (!contexts.includes(context)) {
+    if (!contexts.includes(context) && context.length > 0) {
         contexts.push(context);
     }
-    return contexts;
+    return contexts.sort();
 }, [] as string[]);
 </script>
 
