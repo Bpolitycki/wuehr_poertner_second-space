@@ -6,6 +6,7 @@ interface additional {
 
 interface bib {
   title: string;
+  titleDisplay: string;
   subtitle?: string;
   description?: string;
   type: 'letter' | 'note' | 'draft' | 'tape';
