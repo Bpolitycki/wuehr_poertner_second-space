@@ -40,7 +40,7 @@ const props = defineProps<{
                 <li><span class="has-text-weight-medium">Regie</span>: {{ item.biblio.additional?.producer }}</li>
                 <li><span class="has-text-weight-medium">Rundfunkanstalt</span>: {{ item.biblio.radiostation }}</li>
                 <li v-if="item.biblio.additional?.cast"><span class="has-text-weight-medium">Weitere Beteiligte</span>:
-                    {{ item.biblio.additional?.cast }}</li>
+                    {{ item.biblio.additional?.cast.join(', ') }}</li>
             </div>
             <div v-else>
                 <li v-if="item.biblio.year">
