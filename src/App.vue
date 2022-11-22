@@ -13,7 +13,7 @@ const scrollStore = useScrollPosition()
 </script>
 
 <template>
-    <main>
+    <main @dblclick="(e) => e.preventDefault()">
         <RouterView :key="route.fullPath" />
         <AudioPlayer />
     </main>
