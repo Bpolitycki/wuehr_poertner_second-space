@@ -29,7 +29,7 @@ const image = imageUrl(item.value);
                 <div class="column is-flex is-flex-direction-column is-justify-content-space-between"
                     :class="{ 'is-8': showImg }">
                     <div>
-                        <h5 class="title is-5 has-text-primary">{{ item.biblio.title }}</h5>
+                        <h5 class="title is-5 has-text-primary" v-html="item.biblio.titleDisplay"></h5>
                         <UnstyledList class="has-text-black">
                             <li
                                 v-if="item.media !== 'audio' && item.showcase !== null && !item.biblio.context.includes('Soundseeing')">

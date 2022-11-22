@@ -19,9 +19,8 @@ const props = defineProps<{
     <div class="card p-2">
         <UnstyledList>
             <li class="mb-1"><b>Bibliographische Informationen</b></li>
-            <li class="my-2" v-if="item.biblio.description"><span class="has-text-weight-medium">Anmerkung</span>: {{
-                    item.biblio.description
-            }}</li>
+            <li class="my-2" v-if="item.biblio.description"><span class="has-text-weight-medium">Anmerkung</span>: <span
+                    v-html="item.biblio.description"></span></li>
             <li><span class="has-text-weight-medium">Autor</span>: {{ item.author }}</li>
             <li>
                 <span class="has-text-weight-medium">Werkkontext</span>: <span class="is-italic"> {{ item.biblio.context

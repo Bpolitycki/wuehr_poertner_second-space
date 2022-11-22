@@ -6,6 +6,7 @@ import Result from "@/components/Result.vue";
 import StartStopIcon from "@/components/StartStopIcon.vue";
 import { useDataStore } from "@/stores/data";
 import { storeToRefs } from "pinia";
+import { onMounted } from "vue";
 import { useRoute } from "vue-router";
 
 const route = useRoute();
@@ -15,6 +16,11 @@ const entry = data.value.filter((i) => i.id === route.params.id)[0];
 const relatedEntries = data.value.filter(
     (i) => i.biblio.context === entry.biblio.context && i.id !== entry.id
 );
+
+onMounted(() => {
+    window.scrollTo({ top: 0 })
+}
+)
 </script>
 
 <template>
@@ -22,7 +28,7 @@ const relatedEntries = data.value.filter(
         <div class="container" v-if="entry">
             <HeaderBar :item="entry" />
             <div class="">
-                <h4 class="title is-4">{{ entry.biblio.title }}</h4>
+                <h4 class="title is-4" v-html="entry.biblio.titleDisplay"></h4>
                 <h5 class="subtitle is-5" v-if="entry.biblio.subtitle">
                     {{ entry.biblio.subtitle }}
                 </h5>
@@ -55,7 +61,7 @@ const relatedEntries = data.value.filter(
 
     <secion class="section" v-if="relatedEntries.length > 0">
         <div class="container">
-            <h5 class="title is-5">Verwandte Einträge</h5>
+            <h5 class="title is-5">Korrellierte Objekte</h5>
             <div class="related-wrapper is-flex mb-4 has-background-light p-2">
                 <Result :class="'card mx-2 p-2 pb-4 is-flex is-flex-shrink-0 is-size-65'"
                     v-for="relEntry in relatedEntries" :context="'material'" :item="relEntry" :hr="false"

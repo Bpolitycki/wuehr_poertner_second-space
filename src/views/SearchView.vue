@@ -2,20 +2,24 @@
 import Result from "@/components/Result.vue";
 import LoadingSpinner from "@/components/LoadingSpinner.vue";
 import IconTrash from "@/components/icons/IconTrash.vue"
-import { ref, onMounted, watch } from "vue";
+import { ref, onMounted, onUnmounted, watch } from "vue";
 import type { Ref } from 'vue'
 import { useDataStore } from "@/stores/data";
 import { storeToRefs } from "pinia";
 import IconInfo from "@/components/icons/IconInfo.vue";
 import IconClose from "@/components/icons/IconClose.vue";
 import UnstyledListVue from "@/components/UnstyledList.vue";
+import { useScrollPosition } from "@/stores/scroll";
 
 const store = useDataStore();
 const { filter, filterContext, filteredData, data } = storeToRefs(store);
+const scrollStore = useScrollPosition()
+const { topPos, leaveContext } = storeToRefs(scrollStore)
 
 const showInfo = ref(false)
 const query = ref("");
 const isLoading = ref(false);
+const searchFromNav = ref(false);
 const suggestions = data.value.reduce((contexts, item) => {
     const context = item.biblio.context;
     if (!contexts.includes(context)) {
@@ -33,13 +37,22 @@ function handleInput() {
     }, 750);
 }
 
+function instantSearch() {
+    searchFromNav.value = true
+    isLoading.value = false
+    store.filterByTitleOrId(query.value);
+    store.filterContext = 'search'
+    searchFromNav.value = false
+
+}
+
 
 
 watch(query, () => {
     if (query.value.length === 0) {
         isLoading.value === false;
         store.reset();
-    } else {
+    } else if (!searchFromNav.value) {
         handleInput()
     }
 });
@@ -50,9 +63,18 @@ onMounted(() => {
         store.reset();
     } else if (filter.value.idOrTitle) {
         query.value = filter.value.idOrTitle;
-        handleInput()
+        instantSearch()
+    }
+
+    if (leaveContext.value && topPos.value && leaveContext.value === 'search') {
+        window.scrollTo({ top: topPos.value })
     }
 });
+
+onUnmounted(() => {
+    topPos.value = window.scrollY
+    leaveContext.value = 'search'
+})
 </script>
 
 <template>

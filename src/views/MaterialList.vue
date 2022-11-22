@@ -2,17 +2,28 @@
 import Filters from "@/components/Filters.vue";
 import Result from "@/components/Result.vue";
 import { useDataStore } from "@/stores/data";
+import { useScrollPosition } from "@/stores/scroll";
 import { storeToRefs } from "pinia";
-import { onMounted } from "vue";
+import { onMounted, onUnmounted } from "vue";
 
 const store = useDataStore();
 const { filterContext, filteredData, data } = storeToRefs(store);
+const scrollStore = useScrollPosition()
+const { topPos, leaveContext } = storeToRefs(scrollStore)
 
 onMounted(() => {
     if (filterContext.value !== 'archive') {
         store.reset();
     }
+    if (leaveContext.value && topPos.value && leaveContext.value === 'material') {
+        window.scrollTo({ top: topPos.value })
+    }
 
+})
+
+onUnmounted(() => {
+    topPos.value = window.scrollY
+    leaveContext.value = 'material'
 })
 </script>
 
