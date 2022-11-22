@@ -20,13 +20,7 @@ const showInfo = ref(false)
 const query = ref("");
 const isLoading = ref(false);
 const searchFromNav = ref(false);
-const suggestions = data.value.reduce((contexts, item) => {
-    const context = item.biblio.context;
-    if (!contexts.includes(context)) {
-        contexts.push(context);
-    }
-    return contexts;
-}, [] as string[]);
+const suggestions: [string[], string[]] = [['Interaktionen', 'Blitzlicht', 'Börsenspiel', 'Alea'], ['Soundseeing Metropolis München', 'Preislied', 'Verirrhaus', 'So eine Freiheit']]
 
 function handleInput() {
     store.filterByTitleOrId(query.value);
@@ -118,10 +112,16 @@ onUnmounted(() => {
                 </div>
             </div>
             <div class="is-size-7 mt-4">
-                Suchvorschläge: <span v-on:click="(query = suggestion, handleInput())" v-for="suggestion in suggestions"
-                    class="tag mx-1" :class="{
+                Suchvorschläge: <span v-on:click="(query = suggestion, handleInput())"
+                    v-for="suggestion in suggestions[0]" class="tag mx-1" :class="{
                         'is-light': query.length > 0,
                         'is-primary': query.length === 0
+                    }">{{ suggestion
+}}</span>
+                <span v-on:click="(query = suggestion, handleInput())" v-for="suggestion in suggestions[1]"
+                    class="tag mx-1" :class="{
+                        'is-light': query.length > 0,
+                        'is-warning': query.length === 0
                     }">{{ suggestion
 }}</span>
             </div>

@@ -40,12 +40,12 @@ const image = imageUrl(item.value);
                                 <span class="has-text-weight-medium">Werkkontext</span>:
                                 <span class="is-italic">{{ item.biblio.context }}</span>
                             </li>
-                            <li>
+                            <li v-if="item.biblio.type !== null">
                                 <span class="has-text-weight-medium">Texttyp</span>: {{
                                         translations.translations.biblio[item.biblio.type]
                                 }}
                             </li>
-                            <li>
+                            <li v-if="item.media !== null">
                                 <span class="has-text-weight-medium">Dokumenttyp</span>: {{
                                         translations.translations.media[item.media]
                                 }}

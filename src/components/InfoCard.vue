@@ -8,7 +8,17 @@ const props = defineProps<{
     item: entry;
 }>();
 
-
+const hasEmptyKeys = (object: Object) => {
+    let empty = undefined;
+    for (const prop in object) {
+        if (empty === undefined && (prop === null || prop.length === 0)) {
+            empty = true;
+        } else {
+            empty = false;
+        }
+    }
+    return empty;
+}
 
 
 </script>
@@ -21,16 +31,18 @@ const props = defineProps<{
             <li class="mb-1"><b>Bibliographische Informationen</b></li>
             <li class="my-2" v-if="item.biblio.description"><span class="has-text-weight-medium">Anmerkung</span>: <span
                     v-html="item.biblio.description"></span></li>
-            <li><span class="has-text-weight-medium">Autor</span>: {{ item.author }}</li>
+            <li v-if="item.author !== null && item.author.length > 0"><span class="has-text-weight-medium">Autor</span>:
+                {{ item.author }}</li>
             <li>
                 <span class="has-text-weight-medium">Werkkontext</span>: <span class="is-italic"> {{ item.biblio.context
                 }}</span>
             </li>
             <!-- <li>Dokumenttyp: Entwurf | Notiz | Brief</li> -->
-            <li><span class="has-text-weight-medium">Texttyp</span>: {{
+            <li v-if="item.biblio.type !== null"><span class="has-text-weight-medium">Texttyp</span>: {{
                     translations.translations.biblio[item.biblio.type]
             }}</li>
-            <li><span class="has-text-weight-medium">Dokumenttyp</span>: {{ translations.translations.media[item.media]
+            <li v-if="item.media !== null"><span class="has-text-weight-medium">Dokumenttyp</span>: {{
+                    translations.translations.media[item.media]
             }}</li>
 
             <div class="mt-2" v-if="item.biblio.type === 'tape'">
@@ -49,7 +61,7 @@ const props = defineProps<{
 
         </UnstyledList>
     </div>
-    <div class="card p-2 mt-4">
+    <div class="card p-2 mt-4" v-if="hasEmptyKeys(item.archival)">
 
         <UnstyledList>
             <li class="mb-1"><b>Archivalische Informationen</b></li>
