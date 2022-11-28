@@ -58,7 +58,9 @@ const hasEmptyKeys = (object: Object) => {
                     Datierung / Erscheinungsjahr: {{ item.biblio.year }}
                 </li>
             </div>
-
+            <li v-if="item.metadata.copyright"><span class="has-text-weight-medium">Copyright</span>: ©{{
+                    item.metadata.copyright
+            }}</li>
         </UnstyledList>
     </div>
     <div class="card p-2 mt-4" v-if="hasEmptyKeys(item.archival)">
@@ -69,7 +71,7 @@ const hasEmptyKeys = (object: Object) => {
                 <li class="my-2">
                     <span class="has-text-weight-medium">Kurzbeschreibung</span>: {{ item.archival.description }}
                 </li>
-                <li><span class="has-text-weight-medium">Format</span>: {{ item.archival.Format }}</li>
+                <li><span class="has-text-weight-medium">Format</span>: {{ item.archival.format }}</li>
                 <li><span class="has-text-weight-medium">Umfang</span>: {{ item.archival.scope }}</li>
             </div>
             <li><span class="has-text-weight-medium">Standort / Institution</span>: {{ item.archival.institution }}</li>

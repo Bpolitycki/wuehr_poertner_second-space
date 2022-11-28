@@ -19,7 +19,7 @@ interface bib {
 
 interface archive {
   institution: string;
-  Format?: string;
+  format?: string;
   scope?: string;
   description?: string;
   id?: string;
@@ -31,13 +31,14 @@ interface meta {
   type: mediaType;
   files: string[] | undefined;
   selectedFile: string;
+  copyright?: string;
 }
 
 interface entry {
   showcase: [number, number] | null;
   id: string;
   author: string;
-  media: 'print' | 'manuscript' | 'audio';
+  media: 'print' | 'manuscript' | 'audio' | 'typescript';
   biblio: bib;
   archival: archive;
   metadata: meta;
