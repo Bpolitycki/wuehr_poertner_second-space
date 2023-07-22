@@ -1,52 +1,18 @@
-# wuehr_poertner_second-space
+# Pörtner & Wühr: Spuren des Original-Ton-Hörspiels zwischen Wup-pertal und München. Second Space
 
-This template should help get you started developing with Vue 3 in Vite.
+Unter dem Titel *Pörtner & Wühr: Spuren des Original-Ton-Hörspiels zwischen Wuppertal und München* wurden vom 23.11.2022 bis 31.1.2023 unveröffentlichte Manuskripte aus den Nachlässen der beiden Autoren an der Bergischen Universität und der Stadtbibliothek Wuppertal gezeigt (kuratiert von Wolfgang Lukas, Dana Machwitz und Bastian Politycki). Die physische Ausstellung wurde ergänzt durch eine digitale Anwendung, die diese im virtuellen Raum spiegelte.
 
-## Recommended IDE Setup
+Dieses Repository enthält den Quellcode der iPad-Anwendung, der Interessierten zur Nachnutzung frei zur Verfügung steht. Die zugehörigen Daten stehen aus urheberrechtlichen Gründen nicht frei zur Verfügung.
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+## Verwendete Technologien
 
-## Type Support for `.vue` Imports in TS
+Die Anwendung ist mithilfe von Webtechnologien (Typescript, HTML und CSS) realisiert und wird als iPad-OS-Anwendung gebündelt. Verwendet wurden insbesondere folgende Bibliotheken:
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin) to make the TypeScript language service aware of `.vue` types.
+- [Vue.js](https://vuejs.org)
+- [Capacitor.js](https://capacitorjs.com)
+- [Vite](https://vitejs.dev)
+- [Bulma](https://bulma.io)
 
-If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has also implemented a [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more performant. You can enable it by the following steps:
+## Autor
 
-1. Disable the built-in TypeScript Extension
-    1) Run `Extensions: Show Built-in Extensions` from VSCode's command palette
-    2) Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
-2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
-## Project Setup
-
-```sh
-pnpm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
-pnpm dev
-```
-
-### Type-Check, Compile and Minify for Production
-
-```sh
-pnpm build
-```
-
-### Run Unit Tests with [Vitest](https://vitest.dev/)
-
-```sh
-pnpm test:unit
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-pnpm lint
-```
+[Bastian Politycki](https://github.com/Bpolitycki) - Universität St. Gallen / Bergische Universität Wuppertal
