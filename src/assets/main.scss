@@ -6,6 +6,10 @@ $primary-light: rgba(26, 66, 126, 0.96);
 $navbar-item-hover-color: $primary;
 @import 'bulma/bulma.sass';
 
+.is-caps {
+  font-variant: small-caps;
+}
+
 .button {
   svg {
     height: $size-6;
