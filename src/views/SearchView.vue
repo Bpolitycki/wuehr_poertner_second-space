@@ -16,7 +16,6 @@ const { filter, filterContext, filteredData, data } = storeToRefs(store);
 const scrollStore = useScrollPosition()
 const { topPos, leaveContext } = storeToRefs(scrollStore)
 
-const showInfo = ref(false)
 const query = ref("");
 const isLoading = ref(false);
 const searchFromNav = ref(false);
@@ -76,57 +75,28 @@ onUnmounted(() => {
         <div class="container box  p-2">
 
             <div class="is-flex">
-                <input class="input pl-1" type="text" v-model="query" @submit.prevent
-                    placeholder="Nach Titel oder Vitrine und Exponat suchen" aria-haspopup="true"
-                    aria-controls="tahead-menu" />
-                <button class="button is-info mx-1" v-on:click="showInfo = true">
-                    <IconInfo :style="'height: 1rem'" />
-                </button>
-                <button class="button is-danger" v-on:click="(query = '', store.reset())"
+                <input class="input pl-1" type="text" v-model="query" @submit.prevent placeholder="Nach Titel suchen"
+                    aria-haspopup="true" aria-controls="tahead-menu" />
+                <button class="button is-danger mx-1" v-on:click="(query = '', store.reset())"
                     :disabled="query.length === 0">
                     <IconTrash :style="'height: 1rem'" />
                 </button>
             </div>
-            <div class="modal" :class="{ 'is-active': showInfo }">
-                <div class="modal-background" @click="() => showInfo = false"></div>
-                <div class="modal-content">
-                    <div class="box is-flex is-flex-direction-column pr-0">
-                        <button class="button is-rounded close is-align-self-flex-end" aria-label="close"
-                            @click="() => showInfo = false">
-                            <IconClose />
-                        </button>
-                        <h6 class=" title is-6 mx-4">Erläuterung zur Suche</h6>
-                        <p class="mb-4 mx-4">In im sog. ‚second Space‘ kann entweder nach dem Titel eines Exponats oder
-                            nach
-                            der Nummer
-                            eines Ausstellungsobjekt gesucht werden. Die Nummer eines Objekts ist codiert durch die
-                            Nummer der Vitrine und des Exponats
-                            – diese findet sich auf dem jeweiligen Legendentext. Beispiele:
-                        </p>
-                        <UnstyledListVue :class="'mx-4 mb-3'">
-                            <li><span class="has-text-weight-medium">6,3</span>: Suche nach Vitrine 6 Exponat 3</li>
-                            <li><span class="has-text-weight-medium">6</span>: Suche nach Vitrine 6</li>
-                            <li><span class="has-text-weight-medium">,3</span>: Suche nach allen Exponaten 3</li>
-                        </UnstyledListVue>
-                    </div>
-                </div>
-            </div>
             <div class="is-size-7 mt-4">
                 Suchvorschläge: <span v-on:click="(query = suggestion, handleInput())"
                     v-for="suggestion in suggestions[0]" class="tag mx-1" :class="{
-                        'is-light': query.length > 0,
-                        'is-primary': query.length === 0
-                    }">{{ suggestion
-}}</span>
+                    'is-light': query.length > 0,
+                    'is-primary': query.length === 0
+                }">{{ suggestion
+                    }}</span>
                 <span v-on:click="(query = suggestion, handleInput())" v-for="suggestion in suggestions[1]"
                     class="tag mx-1" :class="{
-                        'is-light': query.length > 0,
-                        'is-warning': query.length === 0
-                    }">{{ suggestion
-}}</span>
+                    'is-light': query.length > 0,
+                    'is-warning': query.length === 0
+                }">{{ suggestion
+                    }}</span>
             </div>
         </div>
-
         <div class="container mt-6">
             <article class="message is-warning" v-if="query.length > 0 && !filteredData">
                 <div class="message-body">

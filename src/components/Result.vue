@@ -31,11 +31,6 @@ const image = imageUrl(item.value);
                     <div>
                         <h5 class="title is-5 has-text-primary" v-html="item.biblio.titleDisplay"></h5>
                         <UnstyledList class="has-text-black">
-                            <li
-                                v-if="item.media !== 'audio' && item.showcase !== null && !item.biblio.context.includes('Soundseeing')">
-                                <span class="has-text-weight-medium">Vitrine</span>: {{ item.showcase[0] }} / <span
-                                    class="has-text-weight-medium">Exponat</span>: {{ item.showcase[1] }}
-                            </li>
                             <li>
                                 <span class="has-text-weight-medium">Werkkontext</span>:
                                 <span class="is-italic">{{ item.biblio.context }}</span>

@@ -32,12 +32,7 @@ onMounted(() => {
                 <h5 class="subtitle is-5" v-if="entry.biblio.subtitle">
                     {{ entry.biblio.subtitle }}
                 </h5>
-                <h6 v-if="entry.media !== 'audio' && entry.showcase !== null && !entry.biblio.context.includes('Soundseeing')"
-                    class="subtitle is-6">Vitrine: {{
-                            entry.showcase[0]
-                    }} /
-                    Exponat: {{ entry.showcase[1] }}
-                </h6>
+
             </div>
             <div class="columns mt-3">
                 <div class="column">
