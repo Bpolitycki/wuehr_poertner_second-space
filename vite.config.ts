@@ -1,8 +1,6 @@
 import { fileURLToPath, URL } from 'url';
 //import dynamicImportVars from '@rollup/plugin-dynamic-import-vars';
-import {
-  dynamicImportVarsOptions,
-} from 'vite';
+import { dynamicImportVarsOptions } from 'vite';
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
 
@@ -14,6 +12,15 @@ export default defineConfig({
     }),
   ],
   build: {
+    rollupOptions: {
+      external: (id) => {
+        if (id.endsWith('.py') || id.endsWith('.csv')) {
+          console.log('Ignoring ...:');
+          console.log(id);
+        }
+        return id.endsWith('.py') || id.endsWith('.csv');
+      },
+    },
   },
   resolve: {
     alias: {
@@ -31,4 +38,5 @@ export default defineConfig({
       },
     },
   },
+  base: './',
 });
