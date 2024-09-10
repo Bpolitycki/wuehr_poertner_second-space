@@ -19,7 +19,7 @@ const { topPos, leaveContext } = storeToRefs(scrollStore)
 const query = ref("");
 const isLoading = ref(false);
 const searchFromNav = ref(false);
-const suggestions: [string[], string[]] = [['Interaktionen', 'Blitzlicht', 'Börsenspiel', 'Alea'], ['Soundseeing Metropolis München', 'Preislied', 'Verirrhaus', 'So eine Freiheit']]
+const suggestions: [string[], string[]] = [['Interaktionen', 'Blitzlicht'], ['Soundseeing Metropolis München', 'Preislied', 'So eine Freiheit']]
 
 function handleInput() {
     store.filterByTitleOrId(query.value);
